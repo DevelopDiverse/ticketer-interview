@@ -21,6 +21,12 @@ return new class extends Migration {
                 ->cascadeOnDelete();
 
             $table->timestamps();
+
+            // prevent a user from reserving the same event twice
+            $table->unique(['event_id', 'user_id']);
+
+            // speed up the capacity count query
+            $table->index('event_id');
         });
     }
 
